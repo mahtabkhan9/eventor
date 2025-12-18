@@ -19,7 +19,7 @@ A full-stack MERN application for managing events with a robust RSVP system hand
 
 1.  **Clone the repository**
     ```bash
-    git clone <repo-url>
+    git clone `https://github.com/mahtabkhan9/eventor`
     ```
 
 2.  **Backend Setup**
