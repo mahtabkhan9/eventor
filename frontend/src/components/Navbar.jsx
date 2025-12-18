@@ -1,34 +1,50 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleLogout = () => {
         logout();
         navigate('/');
+        setIsMenuOpen(false);
+    };
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
     };
 
     return (
         <nav className="navbar">
-            <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Link to="/" className="text-gradient" style={{ fontSize: '1.5rem', textDecoration: 'none' }}>
+            <div className="container navbar-container">
+                <Link to="/" className="text-gradient logo" onClick={closeMenu}>
                     Eventor
                 </Link>
-                <div className="nav-links">
+
+                <div className="menu-toggle" onClick={toggleMenu}>
+                    {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </div>
+
+                <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
                     {user ? (
                         <>
-                            <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                            <Link to="/my-events" className="nav-link">My Events</Link>
-                            <Link to="/create-event" className="btn btn-primary">Create Event</Link>
-                            <button onClick={handleLogout} className="btn" style={{ color: '#ef4444', border: '1px solid #ef4444', background: 'transparent' }}>Logout</button>
+                            <Link to="/dashboard" className="nav-link" onClick={closeMenu}>Dashboard</Link>
+                            <Link to="/my-events" className="nav-link" onClick={closeMenu}>My Events</Link>
+                            <Link to="/create-event" className="btn btn-primary" onClick={closeMenu}>Create Event</Link>
+                            <button onClick={handleLogout} className="btn logout-btn">Logout</button>
                         </>
                     ) : (
                         <>
-                            <Link to="/login" className="nav-link">Login</Link>
-                            <Link to="/register" className="btn btn-primary">Get Started</Link>
+                            <Link to="/login" className="nav-link" onClick={closeMenu}>Login</Link>
+                            <Link to="/register" className="btn btn-primary" onClick={closeMenu}>Get Started</Link>
                         </>
                     )}
                 </div>
