@@ -62,51 +62,49 @@ const EventDetails = () => {
     const isFull = event.attendees.length >= event.capacity;
 
     return (
-
-        <div style={{ minHeight: '100vh', paddingBottom: '5rem', position: 'relative' }}>
-            <div className="container" style={{ paddingTop: '2rem' }}>
+        <div className="event-details-page">
+            <div className="container event-details-container">
                 <button
                     onClick={() => navigate('/dashboard')}
-                    className="btn glass"
-                    style={{ marginBottom: '2rem', padding: '0.5rem 1rem' }}
+                    className="btn glass back-btn"
                 >
                     <ArrowLeft size={18} style={{ marginRight: '0.5rem' }} /> Back to Dashboard
                 </button>
 
-                <div className="glass animate-slide-up" style={{ borderRadius: '24px', overflow: 'hidden', padding: 0 }}>
-                    <div style={{ height: '400px', width: '100%', position: 'relative' }}>
-                        <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, var(--primary), var(--accent))' }} />
-                        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', padding: '3rem' }}>
-                            <span className="badge" style={{ background: 'var(--accent)', color: 'white', border: 'none', marginBottom: '1rem' }}>
+                <div className="glass animate-slide-up event-hero">
+                    <div className="event-banner">
+                        <div className="event-banner-overlay" />
+                        <div className="event-banner-content">
+                            <span className="badge event-host-badge">
                                 Hosted by {event.createdBy?.username || 'Unknown'}
                             </span>
-                            <h1 style={{ fontSize: '3.5rem', fontWeight: '800', margin: 0, color: 'white' }}>{event.title}</h1>
+                            <h1 className="event-title">{event.title}</h1>
                         </div>
                     </div>
 
-                    <div style={{ padding: '3rem', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '3rem' }}>
+                    <div className="event-content-grid">
                         {/* Left Column */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-                            <div className="flex gap-4">
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                    <div style={{ padding: '0.75rem', background: 'rgba(99, 102, 241, 0.15)', borderRadius: '12px', color: 'var(--primary)' }}>
+                        <div className="event-details-col">
+                            <div className="event-datetime-row">
+                                <div className="flex items-center gap-4">
+                                    <div className="event-icon-box event-icon-cal">
                                         <Calendar size={28} />
                                     </div>
                                     <div>
-                                        <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Date</div>
-                                        <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>
+                                        <div className="event-info-label">Date</div>
+                                        <div className="event-info-value">
                                             {new Date(event.date).toLocaleDateString(undefined, { weekday: 'short', month: 'long', day: 'numeric' })}
                                         </div>
                                     </div>
                                 </div>
 
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginLeft: '2rem' }}>
-                                    <div style={{ padding: '0.75rem', background: 'rgba(236, 72, 153, 0.15)', borderRadius: '12px', color: 'var(--accent)' }}>
+                                <div className="flex items-center gap-4">
+                                    <div className="event-icon-box event-icon-clock">
                                         <Clock size={28} />
                                     </div>
                                     <div>
-                                        <div style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Time</div>
-                                        <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>
+                                        <div className="event-info-label">Time</div>
+                                        <div className="event-info-value">
                                             {new Date(event.date).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
                                         </div>
                                     </div>
@@ -114,14 +112,14 @@ const EventDetails = () => {
                             </div>
 
                             <div>
-                                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', borderLeft: '4px solid var(--primary)', paddingLeft: '1rem' }}>About Event</h3>
-                                <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: 'var(--text-secondary)', whiteSpace: 'pre-line' }}>
+                                <h3 className="event-description-title">About Event</h3>
+                                <p className="event-description-text">
                                     {event.description || "No description provided."}
                                 </p>
                             </div>
 
-                            <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.05)', borderRadius: '16px', border: '1px solid var(--border)' }}>
-                                <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                            <div className="event-location-box">
+                                <h4 className="event-location-title">
                                     <MapPin size={24} style={{ color: 'var(--primary)' }} /> Location
                                 </h4>
                                 <p style={{ fontSize: '1.2rem', marginLeft: '2rem', margin: 0 }}>{event.location}</p>
@@ -129,16 +127,16 @@ const EventDetails = () => {
                         </div>
 
 
-                        <div style={{ position: 'relative' }}>
-                            <div className="glass" style={{ position: 'sticky', top: '2rem', padding: '2rem', borderRadius: '20px', boxShadow: 'var(--shadow)' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem' }}>
+                        <div className="rsvp-card-wrapper">
+                            <div className="glass rsvp-card">
+                                <div className="capacity-row">
                                     <div>
                                         <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Capacity</div>
-                                        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{event.capacity} seats</div>
+                                        <div className="capacity-val">{event.capacity} seats</div>
                                     </div>
                                     <div style={{ textAlign: 'right' }}>
                                         <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Going</div>
-                                        <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: isFull ? '#ef4444' : '#10b981' }}>
+                                        <div className="capacity-val" style={{ color: isFull ? '#ef4444' : '#10b981' }}>
                                             {event.attendees.length}
                                         </div>
                                     </div>
@@ -146,8 +144,7 @@ const EventDetails = () => {
 
                                 {user ? (
                                     <button
-                                        className={`btn w-full ${isAttending ? 'btn-secondary' : 'btn-primary'}`}
-                                        style={{ width: '100%', fontSize: '1.1rem', padding: '1rem' }}
+                                        className={`btn w-full rsvp-btn ${isAttending ? 'btn-secondary' : 'btn-primary'}`}
                                         onClick={handleRSVP}
                                         disabled={!isAttending && isFull}
                                     >
@@ -158,12 +155,12 @@ const EventDetails = () => {
                                         )}
                                     </button>
                                 ) : (
-                                    <button className="btn btn-primary w-full" style={{ width: '100%', fontSize: '1.1rem', padding: '1rem' }} onClick={() => navigate('/login')}>
+                                    <button className="btn btn-primary w-full rsvp-btn" onClick={() => navigate('/login')}>
                                         Login to Join
                                     </button>
                                 )}
 
-                                <p style={{ textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '1rem' }}>
+                                <p className="waitlist-text">
                                     {isFull ? "Waitlist available upon request." : "Secure your spot today!"}
                                 </p>
                             </div>
